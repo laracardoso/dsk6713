@@ -30,6 +30,7 @@ short sine_table[LOOPLENGTH]={0,707,1000,707,0,-707,-1000,-707}; //sine values
 short buffer[BUF_SIZE];         // storage for previous samples
 short input,output,delayed;
 int i = 0;
+int test = 1;
 
 void main(){
 
@@ -42,22 +43,23 @@ void main(){
     if(DSK6713_DIP_get(0)==0)         //=0 if DIP switch #0 pressed
     {
       //DSK6713_LED_on(0);               //turn LED #0 ON
-	  input = sine_table[loopindex++];  // read new input sample from ADC
+	  input = sine_table[loopindex];  // read new input sample from ADC
 	  delayed = buffer[i];          // read delayed value from buffer
-	  output = input*gain + delayed;     // output sum of input and delayed values
+	  output = input*gain*test + delayed;     // output sum of input and delayed values
 	  output_left_sample(output);
 	  output_right_sample(output);
 	  buffer[i] = input*gain + delayed*0.8;
 	  i++;
 	  loopindex++;
 	  
-	  if(++i >= BUF_SIZE) {
+	  if(i >= BUF_SIZE) {
 		DSK6713_LED_on(0);
 		i=0;
 		buffer[i] = 0;
 	  }
 
       if (loopindex >= LOOPLENGTH) {
+		test = 0;
 		loopindex = 0; //reset table index
       }
     }
