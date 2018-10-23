@@ -41,7 +41,7 @@ void main(){
   {
     if(DSK6713_DIP_get(0)==0)         //=0 if DIP switch #0 pressed
     {
-      DSK6713_LED_on(0);               //turn LED #0 ON
+      //DSK6713_LED_on(0);               //turn LED #0 ON
 	  input = sine_table[loopindex++];  // read new input sample from ADC
 	  delayed = buffer[i];          // read delayed value from buffer
 	  output = input*gain + delayed;     // output sum of input and delayed values
@@ -52,6 +52,7 @@ void main(){
 	  loopindex++;
 	  
 	  if(++i >= BUF_SIZE) {
+		DSK6713_LED_on(0);
 		i=0;
 		buffer[i] = 0;
 	  }
