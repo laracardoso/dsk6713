@@ -14,13 +14,14 @@
 #define DSK6713_AIC23_INPUT_MIC 0x0015
 #define DSK6713_AIC23_INPUT_LINE 0x0011
 #define LOOPLENGTH 8
-#define BUF_SIZE 16000           // this sets length of delay
+#define BUF_SIZE 44000*5           // this sets length of delay
 
 void comm_poll();
 void output_left_sample(short out_data);
 void output_right_sample(short out_data);
 
-Uint32 fs = DSK6713_AIC23_FREQ_8KHZ;   //set sampling rate
+//Uint32 fs = DSK6713_AIC23_FREQ_8KHZ;   //set sampling rate
+Uint32 fs = DSK6713_AIC23_FREQ_44KHZ;
 Uint16 inputsource = DSK6713_AIC23_INPUT_LINE;  //select input
 
 short loopindex = 0; //table index
