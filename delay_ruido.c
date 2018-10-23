@@ -35,20 +35,25 @@ void main()
 {
       DSK6713_init();
       while(1){
-
-          input = sine_table[n++];  // read new input sample from ADC
+		  
+          input = sine_table[loopindex];  // read new input sample from ADC
           delayed = buffer[i];          // read delayed value from buffer
           output = input + delayed;     // output sum of input and delayed values
           output_left_sample(output);
           output_right_sample(output);
           buffer[i] = input*2 + delayed*GAIN;
           i++;
-          //loopindex++;
+          loopindex++;
 
           if(++i >= BUF_SIZE) {
               i=0;
               buffer[i] = 0;
           }
+		  
+		  if(++loopindex >= n) {
+              loopindex=0;
+          }
+		  
        }
 }
 
